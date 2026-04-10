@@ -16,7 +16,7 @@
 
 ⭐[_**Alibaba International Digital Commerce**_](https://aidc-ai.com)⭐
 
-:octocat: [**GitHub**](https://github.com/AIDC-AI/Marco-LLM) &nbsp; 🤗 [**Model**](https://huggingface.co/collections/AIDC-AI/marco-moe) &nbsp; 📝 [**Marco-MoE Paper**](https://github.com/AIDC-AI/Marco-LLM) &nbsp; 📝 [**Marco-Bench-MIF Paper**](https://aclanthology.org/2025.acl-long.1172)
+:octocat: [**GitHub**](https://github.com/AIDC-AI/Marco-LLM) &nbsp; 🤗 [**Model**](https://huggingface.co/collections/AIDC-AI/marco-moe) &nbsp; 📝 [**Marco-MoE Paper**](https://huggingface.co/AIDC-AI/Marco-Nano-Instruct/blob/main/technical_details.pdf) &nbsp; 📝 [**Marco-Bench-MIF Paper**](https://aclanthology.org/2025.acl-long.1172)
 
 </div>
 
