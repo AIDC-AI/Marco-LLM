@@ -1,0 +1,16 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Virtual environment
+base/
+
+# Logs
+log/
+
+# IDE
+.vscode/
+
+# OS
+.DS_Store
