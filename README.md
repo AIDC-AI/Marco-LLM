@@ -26,6 +26,8 @@
 
 ## 🔥 News
 
+- **[2026.4]** 🔥 We released **[CulturAll](./CulturAll/README.md)** — a comprehensive benchmark for evaluating LLMs' multilingual and multicultural competence on grounded tasks, covering **14 languages**, **51 regions**, and **16 topics** with 2,610 samples.
+
 - **[2026.4]** 🔥 We released **[Marco-MoE](./Marco-MoE/README.md)** — a family of compact, highly sparse multilingual Mixture-of-Expert language models. Marco-MoE achieves state-of-the-art performance-to-compute ratios across both English and multilingual benchmarks, covering **29 to 64 languages** while activating only **5-7.5%** of total parameters per token. Models, data, and training recipes are fully open-sourced.
 
 - **[2025.5]** 🔥 The paper **[Marco-Bench-MIF](./Marco-Bench-MIF/README.md)** has been accepted by **ACL 2025** — the first deeply localized multilingual instruction-following benchmark across 30 languages, revealing that machine translation underestimates model performance by 7-22%.
@@ -124,6 +126,12 @@ Marco-Bench-MIF is the first deeply localized multilingual benchmark for evaluat
 https://huggingface.co/datasets/AIDC-AI/Marco-Bench-MIF
 ```
 
+## CulturAll: Benchmarking Multilingual and Multicultural Competence of LLMs
+
+> 📄 **[Full Details](./CulturAll/README.md)**
+
+CulturAll is a comprehensive and challenging benchmark to assess LLMs' multilingual and multicultural competence on grounded tasks. It contains **2,610 samples** in **14 languages** across **51 regions** and **16 topics**. The best LLM achieves only **44.48% accuracy**, underscoring substantial room for improvement.
+
 #
 
 ## 👨🏻‍💻 Acknowledgement
@@ -158,5 +166,14 @@ If you find our work useful, please cite the relevant papers:
   doi       = "10.18653/v1/2025.acl-long.1172",
   pages     = "24058--24072",
   ISBN      = "979-8-89176-251-0"
+}
+```
+
+**CulturAll:**
+```bibtex
+@article{lin2025culturall,
+  title={CulturALL: Benchmarking Multilingual and Multicultural Competence of LLMs on Grounded Tasks},
+  author={Lin, Peiqin and Lyu, Chenyang and Luo, Wenjiang and Ye, Haotian and Hossain, Md Mehrab and Ma, Chunlan and Ji, Shaoxiong and Samih, Younes and Zeng, Bo and Jiang, Fan and Cao, Yuanbin and Duisenbek, Dilda and Neo Sau Xun, Adrian and Pozdniakova, Daria and Misevich, Liubou and Marinković, Nevena and Nguyen, Ngoc Gia Linh and Do, Thi Khanh Linh and Sophy, Sarakmatak and Hu, Baotian and Chen, Guanhua and Tang, Gongbo and Aji, Alham Fikri and Wang, Longyue and Luo, Weihua},
+  year={2025}
 }
 ```
