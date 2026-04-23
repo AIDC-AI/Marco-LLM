@@ -171,9 +171,13 @@ If you find our work useful, please cite the relevant papers:
 
 **CulturAll:**
 ```bibtex
-@article{lin2025culturall,
-  title={CulturALL: Benchmarking Multilingual and Multicultural Competence of LLMs on Grounded Tasks},
-  author={Lin, Peiqin and Lyu, Chenyang and Luo, Wenjiang and Ye, Haotian and Hossain, Md Mehrab and Ma, Chunlan and Ji, Shaoxiong and Samih, Younes and Zeng, Bo and Jiang, Fan and Cao, Yuanbin and Duisenbek, Dilda and Neo Sau Xun, Adrian and Pozdniakova, Daria and Misevich, Liubou and Marinković, Nevena and Nguyen, Ngoc Gia Linh and Do, Thi Khanh Linh and Sophy, Sarakmatak and Hu, Baotian and Chen, Guanhua and Tang, Gongbo and Aji, Alham Fikri and Wang, Longyue and Luo, Weihua},
-  year={2025}
+@misc{lin2026culturallbenchmarkingmultilingualmulticultural,
+      title={CulturALL: Benchmarking Multilingual and Multicultural Competence of LLMs on Grounded Tasks}, 
+      author={Peiqin Lin and Chenyang Lyu and Wenjiang Luo and Haotian Ye and Md Mehrab Hossain and Chunlan Ma and Shaoxiong Ji and Younes Samih and Bo Zeng and Fan Jiang and Yuanbin Cao and Dilda Duisenbek and Adrian Neo Sau Xun and Daria Pozdniakova and Liubou Misevich and Nevena Marinković and Ngoc Gia Linh Nguyen and Thi Khanh Linh Do and Sarakmatak Sophy and Baotian Hu and Guanhua Chen and Gongbo Tang and Alham Fikri Aji and Longyue Wang and Weihua Luo},
+      year={2026},
+      eprint={2604.19262},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2604.19262}, 
 }
 ```
