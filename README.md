@@ -26,6 +26,8 @@
 
 ## 🔥 News
 
+- **[2026.4]** 🔥 We released **[DetectRL-X](./DetectRL-X/README.md)**, a comprehensive multilingual benchmark for LLM-generated text detection, covering **8 languages**, **6 domains**, and **4 commercial LLMs** across **8 evaluation dimensions**. The paper has been accepted by **ACL 2026**.
+
 - **[2026.4]** 🔥 We released **[CulturAll](./CulturAll/README.md)** — a comprehensive benchmark for evaluating LLMs' multilingual and multicultural competence on grounded tasks, covering **14 languages**, **51 regions**, and **16 topics** with 2,610 samples.
 
 - **[2026.4]** 🔥 We released **[Marco-MoE](./Marco-MoE/README.md)** — a family of compact, highly sparse multilingual Mixture-of-Expert language models. Marco-MoE achieves state-of-the-art performance-to-compute ratios across both English and multilingual benchmarks, covering **29 to 64 languages** while activating only **5-7.5%** of total parameters per token. Models, data, and training recipes are fully open-sourced.
@@ -132,6 +134,23 @@ https://huggingface.co/datasets/AIDC-AI/Marco-Bench-MIF
 
 CulturAll is a comprehensive and challenging benchmark to assess LLMs' multilingual and multicultural competence on grounded tasks. It contains **2,610 samples** in **14 languages** across **51 regions** and **16 topics**. The best LLM achieves only **44.48% accuracy**, underscoring substantial room for improvement.
 
+## DetectRL-X: Towards Reliable Multilingual and Real-World LLM-Generated Text Detection
+
+> 📄 **[Full Details](./DetectRL-X/README.md)** &nbsp; | &nbsp; 📝 [**Paper**](https://arxiv.org/abs/2605.15518) &nbsp; | &nbsp; 🤗 **Data** (Coming Soon) &nbsp; | &nbsp; **ACL 2026**
+
+DetectRL-X is the most large-scale and challenging multilingual benchmark for LLM-generated text (LGT) detection, containing **3.46 million samples** spanning **8 languages** across **5 language families**, **6 domains**, **4 commercial LLMs**, **8 attack strategies**, **4 text-length granularities**, and **3 refinement operations**. It extends the traditional Binary classification task (HWT vs. LGT) to a **Ternary setting** that also identifies human-written & LLM-refined text (HLT), better reflecting real-world human-LLM collaboration. The benchmark provides **8 evaluation dimensions** comparing **12 representative detectors**, revealing the strengths and limitations of current state-of-the-art methods in multilingual, real-world scenarios.
+
+**Key Features:**
+- **8 languages** across 5 language families: English, German, Spanish, French, Portuguese, Russian, Arabic, Chinese
+- **6 domains** manually curated: Academic, News, Novel, SEO, Wiki, WebText
+- **4 commercial LLMs**: Deepseek-V3, Gemini-2.5-flash, GPT-4o, Qwen-Max
+- **Ternary classification**: Distinguishes HWT, HLT (Human-written & LLM-refined), and LGT
+- **3 AI-assisted operations**: polishing, expanding, and condensing
+- **8 attack strategies**: 4 paraphrase + 4 perturbation attacks across all languages
+- **4 text-length granularities**: 64, 128, 256, and 512 tokens
+- **12 detectors** benchmarked: 9 statistical + 3 neural-based methods
+- **8 evaluation dimensions**: In-Distribution, Cross-Domain, Cross-Generator, Cross-Language, Cross-Paraphrase, Cross-Perturbation, Cross-Length, Cross-Operation
+
 #
 
 ## 👨🏻‍💻 Acknowledgement
@@ -179,5 +198,16 @@ If you find our work useful, please cite the relevant papers:
       archivePrefix={arXiv},
       primaryClass={cs.CL},
       url={https://arxiv.org/abs/2604.19262}, 
+}
+```
+
+**DetectRL-X:**
+```bibtex
+@inproceedings{detectrl-x,
+  title     = {DetectRL-X: Towards Reliable Multilingual and Real-World LLM-Generated Text Detection},
+  author    = {Junchao Wu and Yefeng Liu and Chenyu Zhu and Hao Zhang and Zeyu Wu and Tianqi Shi and Yichao Du and Longyue Wang and Weihua Luo and Jinsong Su and Derek F. Wong},
+  booktitle = {Proceedings of the 63rd Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)},
+  year      = {2026},
+  url       = {https://arxiv.org/abs/2605.15518},
 }
 ```
