@@ -136,7 +136,7 @@ CulturAll is a comprehensive and challenging benchmark to assess LLMs' multiling
 
 ## DetectRL-X: Towards Reliable Multilingual and Real-World LLM-Generated Text Detection
 
-> 📄 **[Full Details](./DetectRL-X/README.md)** &nbsp; | &nbsp; 📝 [**Paper**](https://arxiv.org/abs/2605.15518) &nbsp; | &nbsp; 🤗 **Data** (Coming Soon) &nbsp; | &nbsp; **ACL 2026**
+> 📄 **[Full Details](./DetectRL-X/README.md)** &nbsp; | &nbsp; 📝 [**Paper**](https://arxiv.org/abs/2605.15518) &nbsp; | &nbsp; 🤗 [**Data**](https://huggingface.co/datasets/WUJUNCHAO/DetectRL-X) &nbsp; | &nbsp; **ACL 2026**
 
 DetectRL-X is the most large-scale and challenging multilingual benchmark for LLM-generated text (LGT) detection, containing **3.46 million samples** spanning **8 languages** across **5 language families**, **6 domains**, **4 commercial LLMs**, **8 attack strategies**, **4 text-length granularities**, and **3 refinement operations**. It extends the traditional Binary classification task (HWT vs. LGT) to a **Ternary setting** that also identifies human-written & LLM-refined text (HLT), better reflecting real-world human-LLM collaboration. The benchmark provides **8 evaluation dimensions** comparing **12 representative detectors**, revealing the strengths and limitations of current state-of-the-art methods in multilingual, real-world scenarios.
 
@@ -203,11 +203,30 @@ If you find our work useful, please cite the relevant papers:
 
 **DetectRL-X:**
 ```bibtex
-@inproceedings{detectrl-x,
-  title     = {DetectRL-X: Towards Reliable Multilingual and Real-World LLM-Generated Text Detection},
-  author    = {Junchao Wu and Yefeng Liu and Chenyu Zhu and Hao Zhang and Zeyu Wu and Tianqi Shi and Yichao Du and Longyue Wang and Weihua Luo and Jinsong Su and Derek F. Wong},
-  booktitle = {Proceedings of the 63rd Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)},
-  year      = {2026},
-  url       = {https://arxiv.org/abs/2605.15518},
+@inproceedings{wu-etal-2026-detectrl,
+    title = "{D}etect{RL}-{X}: Towards Reliable Multilingual and Real-World {LLM}-Generated Text Detection",
+    author = "Wu, Junchao  and
+      Liu, Yefeng  and
+      Zhu, Chenyu  and
+      Zhang, Hao  and
+      Wu, Zeyu  and
+      Shi, Tianqi  and
+      Du, Yichao  and
+      Wang, Longyue  and
+      Luo, Weihua  and
+      Su, Jinsong  and
+      Wong, Derek F.",
+    editor = "Liakata, Maria  and
+      Moreira, Viviane P.  and
+      Zhang, Jiajun  and
+      Jurgens, David",
+    booktitle = "Proceedings of the 64th Annual Meeting of the {A}ssociation for {C}omputational {L}inguistics (Volume 1: Long Papers)",
+    month = jul,
+    year = "2026",
+    address = "San Diego, California, United States",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2026.acl-long.1773/",
+    doi = "10.18653/v1/2026.acl-long.1773",
+    pages = "38247--38294",
 }
 ```

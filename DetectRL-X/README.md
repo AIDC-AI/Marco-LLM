@@ -12,7 +12,7 @@
 
 ⭐ [_**University of Macau**_](https://www.um.edu.mo) &nbsp; | &nbsp; [_**Alibaba Group**_](https://www.alibaba.com) &nbsp; | &nbsp; [_**Xiamen University**_](https://www.xmu.edu.cn) ⭐
 
-:octocat: [**GitHub**](https://github.com/AIDC-AI/Marco-LLM) &nbsp; 🤗 **Data** (Coming Soon) &nbsp; 📝 [**Paper**](https://arxiv.org/abs/2605.15518)
+:octocat: [**GitHub**](https://github.com/AIDC-AI/Marco-LLM) &nbsp; 🤗 [**Data**](https://huggingface.co/datasets/WUJUNCHAO/DetectRL-X) &nbsp; 📝 [**Paper**](https://arxiv.org/abs/2605.15518)
 
 </div>
 
@@ -88,38 +88,13 @@ Texts are generated using 4 mainstream multilingual LLMs:
 | GPT-4o | OpenAI's flagship multimodal model |
 | Qwen-Max | Alibaba's advanced multilingual LLM |
 
-### Text Refinement Operations (3 Types)
+### Text Refinement, Attack & Length
 
-Reflecting real-world human-LLM collaboration, we define three refinement operations based on established writing taxonomies:
+- **3 refinement operations** (Polishing, Expanding, Condensing) applied to both HWT and LGT, defining three text categories: HWT, HLT, LGT
+- **8 attack strategies**: 4 paraphrase (Encoder Paraphrasing, Seq2seq Paraphrasing, Decoder Paraphrasing, Back-Translation) + 4 perturbation (Character Insertion, Character Substitution, Character Deletion, Zero-width Insertion), uniformly applicable across all languages
+- **4 text-length granularities**: 64, 128, 256, and 512 tokens
 
-1. **Polishing**: Improving fluency and style
-2. **Expanding**: Adding details and elaboration
-3. **Condensing**: Removing redundancies
-
-These operations define three text categories:
-- **HWT** (Human-Written Text): Original human-authored content
-- **HLT** (Human-written & LLM-refined Text): HWT refined by LLM
-- **LGT** (LLM-Generated Text): Fully LLM-generated content
-
-### Attack Framework (8 Strategies)
-
-A multilingual attack framework simulates diverse human modifications and writing noise:
-
-**Paraphrase Attacks** (semantic-preserving transformations):
-- Encoder Paraphrasing (EP)
-- Seq2seq Paraphrasing (SP)
-- Decoder Paraphrasing (DP)
-- Back-Translation (BT)
-
-**Perturbation Attacks** (fine-grained character-level noise):
-- Character Insertion (CI)
-- Character Substitution (CS)
-- Character Deletion (CD)
-- Zero-width Insertion (ZI)
-
-### Text Length Granularities (4 Levels)
-
-Semantically complete sub-samples at **64, 128, 256, and 512 tokens** to assess length sensitivity.
+> See [Rewriting Strategies](#rewriting-strategies) below for detailed descriptions of each strategy.
 
 ### Evaluation Dimensions (8 Dimensions)
 
@@ -204,14 +179,206 @@ The dataset is organized as follows:
 - **Attack samples**: 576K paraphrase + 576K perturbation = 1,152K samples for adversarial stress testing
 - **Multi-length samples**: 1,152K samples across 4 length granularities to assess length sensitivity
 
-## 📥 Dataset Access
+### File Structure
 
-> ⚠️ Code and data are currently being organized — **Coming Soon**.
+```
+DetectRL-X/
+├── Binary/                    # 2-way classification (human vs. LLM)
+│   ├── binary_general_open.json
+│   ├── binary_general_64_open.json
+│   ├── binary_general_128_open.json
+│   ├── binary_general_256_open.json
+│   ├── binary_general_512_open.json
+│   ├── binary_backtranslation_open.json
+│   ├── binary_encoder_paraphrasing_open.json
+│   ├── binary_decoder_paraphrasing_open.json
+│   ├── binary_seq2seq_paraphrasing_open.json
+│   ├── binary_character_deletion_open.json
+│   ├── binary_character_insertion_open.json
+│   ├── binary_character_substitution_open.json
+│   ├── binary_zero_width_insertion_open.json
+│   ├── binary_polishing_open.json
+│   ├── binary_expanding_open.json
+│   └── binary_condensing_open.json
+└── Ternary/                   # 3-way classification (human vs. LLM vs. LLM-refined)
+    ├── trinary_general_open.json
+    ├── trinary_general_64_open.json
+    ├── trinary_general_128_open.json
+    ├── trinary_general_256_open.json
+    ├── trinary_general_512_open.json
+    ├── trinary_backtranslation_open.json
+    ├── trinary_encoder_paraphrasing_open.json
+    ├── trinary_decoder_paraphrasing_open.json
+    ├── trinary_seq2seq_paraphrasing_open.json
+    ├── trinary_character_deletion_open.json
+    ├── trinary_character_insertion_open.json
+    ├── trinary_character_substitution_open.json
+    ├── trinary_zero_width_insertion_open.json
+    ├── trinary_expanding_open.json
+    └── trinary_condensing_open.json
+```
+
+> **Note**: Only `*_open.json` files are publicly released. `*_heldout.json` files are reserved for a shared task and will be released later.
+
+### Rewriting Strategies
+
+Each strategy applies a specific transformation to LLM-generated text to simulate real-world evasion attempts. The strategies are organized into four categories:
+
+**Paraphrasing Strategies** — Systematically rewrite text content to generate semantically equivalent yet expressionally diverse textual variants, while preserving the core meaning.
+
+| Strategy | Description |
+|:---|:---|
+| encoder_paraphrasing | Employs advanced encoder architectures (Encoder-only model) to intelligently identify and mask key textual segments, generating alternative content that is strictly semantically equivalent but significantly varied at the lexical level, while ensuring linguistic fluency |
+| seq2seq_paraphrasing | Leverages powerful sequence-to-sequence architectures (fine-tuned multilingual mT5) to enable fine-grained rewriting of complex structures and long passages, effectively simulating diverse patterns found in human-authored text |
+| decoder_paraphrasing | Capitalizes on large-scale pretrained decoder-only language models (fine-tuned multilingual Qwen-2.5-7B via DPO) to demonstrate exceptional capability in creative paraphrasing, generating grammatically robust and semantically diverse variants |
+| backtranslation | A classic paraphrasing technique that generates semantically faithful yet expressively novel textual variants by exploiting the linguistic transformations inherent in a "source → target → source" bidirectional pipeline (using multilingual mBART, with English as pivot for non-English inputs, Chinese as pivot for English) |
+
+**Perturbation Strategies** — Language-agnostic and universally applicable adversarial perturbations designed to simulate pervasive perturbations that transcend specific languages and writing systems. All strategies adhere to a unified "low-level intervention" principle: independent of specific linguistic grammars, tokenize the input and randomly sample 15% of the words for physical-level modification.
+
+| Strategy | Description |
+|:---|:---|
+| character_insertion | Systematically repeats the preceding character at arbitrary positions within selected words, simulating common "repetitive keystroke" errors. Entirely independent of specific lexical or syntactic rules, applicable to Latin, Cyrillic, or other alphabetic systems without language-specific customization |
+| character_substitution | Exploits the vast Unicode standard to replace characters with visually identical (or highly similar) but uniquely encoded counterparts (e.g., Latin "a" with Cyrillic "a"). Uses authoritative cross-textual obfuscation dictionaries including Unicode Confusables, Arabic Shaping, and homoglyph corpora |
+| character_deletion | Randomly removes characters from selected words, mimicking spelling omissions during rapid typing. A non-parametric attack requiring no external knowledge bases, introducing pure structural entropy to test model robustness against low-quality, noisy multilingual inputs |
+| zero_width_insertion | Injects non-printing or zero-width Unicode control characters (Zero Width Space U+200B, Zero Width Non-Joiner U+200C, Zero Width Joiner U+200D, Word Joiner U+2060). These are integral to the core Unicode standard and supported by virtually all global text processing systems, creating a universal attack vector that is visually "invisible" |
+
+**Structure-Level Strategies** — Modify the structural properties (e.g., length, fluency) of the text through LLM-assisted refinement operations.
+
+| Strategy | Description |
+|:---|:---|
+| condensing | Condense/compress the text by removing redundancies while preserving core meaning |
+| expanding | Expand/elaborate the text |
+| polishing | Polish the text for fluency (Binary only) |
+
+**General Strategies** — Default experimental setting with optional length restrictions.
+
+| Strategy | Description |
+|:---|:---|
+| general | Default experimental setting (no length restriction) |
+| general_64 | Texts truncated to max 64 tokens |
+| general_128 | Texts truncated to max 128 tokens |
+| general_256 | Texts truncated to max 256 tokens |
+| general_512 | Texts truncated to max 512 tokens |
+
+### Data Fields
+
+**Binary Subset:**
+
+| Field | Type | Description |
+|:---|:---|:---|
+| `human_written_text` | string | Original human-written text |
+| `llm_generated_text` | string | Text generated by an LLM |
+| `lang` | string | Language (arabic, chinese, english, french, german, portuguese, russian, spanish) |
+| `model` | string | LLM used (deepseek-v3, gemini-2.5-flash, gpt-4o, qwen-max) |
+| `split` | string | Data split (train / test) |
+| `domain` | string | Text domain (e.g., News, Academic, etc.) |
+
+**Ternary Subset:**
+
+| Field | Type | Description |
+|:---|:---|:---|
+| `human_written_text` | string | Original human-written text |
+| `llm_generated_text` | string | Text generated by an LLM |
+| `llm_refined_text` | string | LLM-generated text further refined/rewritten |
+| `lang` | string | Language |
+| `model` | string | LLM used |
+| `split` | string | Data split (train / test) |
+| `domain` | string | Text domain |
+
+### OOD Robustness Testing
+
+A key design principle of DetectRL-X is evaluating **out-of-distribution (OOD) robustness** of detection models:
+
+- The **train split is identical** across all strategy files — it contains the same human-written and LLM-generated text pairs
+- The **test split differs** across strategies — each strategy file applies its specific rewriting transformation to the test set
+
+This design allows researchers to:
+1. Train a detector on standard human vs. LLM text pairs (shared train set)
+2. Evaluate the detector's robustness against various rewriting strategies (strategy-specific test sets)
+3. Compare performance across strategies fairly, since the train set is held constant
+
+> **Space-saving tip**: Since the train split is duplicated across all strategy files, you can download only one file's train split and the test splits of the strategies you're interested in to save storage space.
+
+### Open vs. Heldout
+
+The dataset is partitioned along three dimensions: **8 languages × 4 LLMs × 6 domains = 192 cells**.
+
+| Partition | Availability | Splits | Samples | Per Cell | Purpose |
+|:---|:---:|:---|:---:|:---:|:---|
+| `*_open.json` | ✅ Public | train (400) + test (250) | 124,800 | 650 | Training and open evaluation |
+| `*_heldout.json` | 🔒 Shared task only | train (100) | 19,200 | 100 | Reserved for shared task evaluation |
+
+The heldout set was created via stratified sampling (100 train samples per (lang, model, domain) cell) with a fixed random seed (SEED=42), ensuring that the same samples are held out across all strategy files for fair cross-strategy comparison.
+
+## 📥 Dataset Access
 
 ```bash
 # HuggingFace
 https://huggingface.co/datasets/WUJUNCHAO/DetectRL-X
 ```
+
+### Loading the Dataset
+
+**Using Hugging Face `datasets`:**
+
+```python
+from datasets import load_dataset
+
+# Load a specific strategy from Binary
+dataset = load_dataset("WUJUNCHAO/DetectRL-X", data_files="Binary/binary_general_open.json")
+
+# Load a specific strategy from Ternary
+dataset = load_dataset("WUJUNCHAO/DetectRL-X", data_files="Ternary/trinary_general_open.json")
+
+print(dataset["train"][0])
+```
+
+**Using `ijson` (for large files, streaming):**
+
+```python
+import ijson
+
+with open("binary_general_open.json", "rb") as f:
+    for item in ijson.items(f, "item"):
+        print(item["human_written_text"][:100])
+        break
+```
+
+### Example Sample
+
+```json
+{
+  "human_written_text": "قمة اميركية سعودية في الرياض مع بدء عهد الملك سلمان...",
+  "llm_generated_text": "زيارة أوباما للسعودية: إحياء للعلاقات الاستراتيجية...",
+  "lang": "arabic",
+  "model": "deepseek-v3",
+  "split": "train",
+  "domain": "News"
+}
+```
+
+## 🤖 Released Models
+
+### Detector
+
+| Model | Description | Link |
+|:---|:---|:---|
+| DetectRL-X-XLM-RoBERTa-Detector-All | XLM-RoBERTa-based detector fine-tuned on DetectRL-X across all languages | 🤗 [WUJUNCHAO/DetectRL-X-XLM-RoBERTa-Detector-All](https://huggingface.co/WUJUNCHAO/DetectRL-X-XLM-RoBERTa-Detector-All) |
+
+### Multilingual Paraphraser Models
+
+Decoder-based paraphrasing models fine-tuned via DPO on Qwen-2.5-7B, one per language:
+
+| Language | Model |
+|:---|:---|
+| Arabic | 🤗 [WUJUNCHAO/Qwen-Paraphraser-Arabic-DPO](https://huggingface.co/WUJUNCHAO/Qwen-Paraphraser-Arabic-DPO) |
+| Chinese | 🤗 [WUJUNCHAO/Qwen-Paraphraser-Chinese-DPO](https://huggingface.co/WUJUNCHAO/Qwen-Paraphraser-Chinese-DPO) |
+| English | 🤗 [WUJUNCHAO/Qwen-Paraphraser-English-DPO](https://huggingface.co/WUJUNCHAO/Qwen-Paraphraser-English-DPO) |
+| French | 🤗 [WUJUNCHAO/Qwen-Paraphraser-French-DPO](https://huggingface.co/WUJUNCHAO/Qwen-Paraphraser-French-DPO) |
+| German | 🤗 [WUJUNCHAO/Qwen-Paraphraser-German-DPO](https://huggingface.co/WUJUNCHAO/Qwen-Paraphraser-German-DPO) |
+| Portuguese | 🤗 [WUJUNCHAO/Qwen-Paraphraser-Portuguese-DPO](https://huggingface.co/WUJUNCHAO/Qwen-Paraphraser-Portuguese-DPO) |
+| Russian | 🤗 [WUJUNCHAO/Qwen-Paraphraser-Russian-DPO](https://huggingface.co/WUJUNCHAO/Qwen-Paraphraser-Russian-DPO) |
+| Spanish | 🤗 [WUJUNCHAO/Qwen-Paraphraser-Spanish-DPO](https://huggingface.co/WUJUNCHAO/Qwen-Paraphraser-Spanish-DPO) |
 
 ## 📧 Contact
 
@@ -229,11 +396,30 @@ Special thanks to all contributors, annotators, and translators who participated
 ## 📝 Citation
 
 ```bibtex
-@inproceedings{detectrl-x,
-  title     = {DetectRL-X: Towards Reliable Multilingual and Real-World LLM-Generated Text Detection},
-  author    = {Junchao Wu and Yefeng Liu and Chenyu Zhu and Hao Zhang and Zeyu Wu and Tianqi Shi and Yichao Du and Longyue Wang and Weihua Luo and Jinsong Su and Derek F. Wong},
-  booktitle = {Proceedings of the 63rd Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)},
-  year      = {2026},
-  url       = {https://arxiv.org/abs/2605.15518},
+@inproceedings{wu-etal-2026-detectrl,
+    title = "{D}etect{RL}-{X}: Towards Reliable Multilingual and Real-World {LLM}-Generated Text Detection",
+    author = "Wu, Junchao  and
+      Liu, Yefeng  and
+      Zhu, Chenyu  and
+      Zhang, Hao  and
+      Wu, Zeyu  and
+      Shi, Tianqi  and
+      Du, Yichao  and
+      Wang, Longyue  and
+      Luo, Weihua  and
+      Su, Jinsong  and
+      Wong, Derek F.",
+    editor = "Liakata, Maria  and
+      Moreira, Viviane P.  and
+      Zhang, Jiajun  and
+      Jurgens, David",
+    booktitle = "Proceedings of the 64th Annual Meeting of the {A}ssociation for {C}omputational {L}inguistics (Volume 1: Long Papers)",
+    month = jul,
+    year = "2026",
+    address = "San Diego, California, United States",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2026.acl-long.1773/",
+    doi = "10.18653/v1/2026.acl-long.1773",
+    pages = "38247--38294",
 }
 ```
